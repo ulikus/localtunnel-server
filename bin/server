@@ -39,7 +39,7 @@ const server = require('../server')({
 });
 
 server.listen(argv.port, () => {
-    debug('server listening on port: %d', server.address().port);
+    debug('server listening on port: %d', server.address().port, 'and host ', server.address().host);
 });
 
 process.on('SIGINT', () => {

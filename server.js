@@ -21,12 +21,12 @@ proxy.on('error', function(err) {
     log.error(err);
 });
 
-proxy.on('proxyReq', function(proxyReq, req, res, options) {
+/*proxy.on('proxyReq', function(proxyReq, req, res, options) {
     // rewrite the request so it hits the correct url on github
     // also make sure host header is what we expect
     proxyReq.path = '/www' + proxyReq.path;
     proxyReq.setHeader('host', 'localtunnel.github.io');
-});
+});*/
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -243,6 +243,7 @@ module.exports = function(opt) {
     const app = express();
 
     app.get('/', function(req, res, next) {
+        console.log(req.headers.host, opt.host);
         if (req.query['new'] === undefined) {
             return next();
         }
@@ -315,7 +316,7 @@ module.exports = function(opt) {
     const server = http.createServer();
 
     server.on('request', function(req, res) {
-
+        console.log(req.headers.host, opt.host);
         req.on('error', (err) => {
             console.error('request', err);
         });
